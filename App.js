@@ -11,7 +11,7 @@ const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName='UniFocus' >
-        <Stack.Screen name="UniFocus" component={MainScreen} />
+        <Stack.Screen name="UniFocus" component={MainScreen} headerShown={false} />
       </Stack.Navigator>
     </NavigationContainer>
   );

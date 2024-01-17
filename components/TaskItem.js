@@ -5,17 +5,20 @@ import { Feather } from '@expo/vector-icons'; // Replace with your preferred ico
 
 const TaskItem = ({ emoji, time, task, isChecked, onToggle }) => {
   return (
-    <View className="flex-row items-center">
-      <Text>{emoji}</Text>
-      <Text>{time}</Text>
-      <TouchableOpacity onPress={onToggle}>
+    <View className="flex-row items-center justify-between p-6 rounded-xl bg-purple-400 m-2 mx-4 border-solid border-2 border-pink-400 bord">
+      <Text className='text-3xl'>{emoji}</Text>
+      <View>
+        <Text className='text-md'>{time}</Text>
+        <Text className='text-xl'>{task}</Text>
+      </View>
+      
+      <TouchableOpacity onPress={onToggle} className='rounded-full'>
         {isChecked ? (
-          <Feather name="check-square" size={24} color="black" />
+          <Feather name="check-square" size={30} color="black" />
         ) : (
-          <Feather name="square" size={24} color="black" />
+          <Feather name="circle" size={30} color="black" />
         )}
       </TouchableOpacity>
-      <Text>{task}</Text>
     </View>
   );
 };

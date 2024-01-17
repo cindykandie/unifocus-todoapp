@@ -18,7 +18,7 @@ const DayHeader = ({ currentDate }) => {
   }
 
   return (
-    <View className="flex-row items-center justify-between py-4 px-6 bg-gray-200">
+    <View className="flex-row items-center justify-center py-4 px-6 bg-purple-200">
       <Text>{displayText}</Text>
       {/* Button for navigating to Today */}
       {/* Add onPress action to navigate to Today's list */}

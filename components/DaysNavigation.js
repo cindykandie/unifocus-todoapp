@@ -14,18 +14,21 @@ const DaysNavigation = ({ onDayPress }) => {
       const formattedDate = moment().startOf('week').add(index, 'days').format('DD');
 
       return (
+        <View >
         <TouchableOpacity key={day} onPress={() => onDayPress(currentDate)}>
           <View className="items-center">
             <Text>{day}</Text>
             <Text>{formattedDate}</Text>
           </View>
         </TouchableOpacity>
+        </View>
+
       );
     });
   };
 
   return (
-    <View className="flex-row justify-between py-4 px-6 bg-gray-300">
+    <View className="flex-row justify-between py-4 px-6 bg-purple-300 rounded-b-md">
       {renderDays()}
     </View>
   );
