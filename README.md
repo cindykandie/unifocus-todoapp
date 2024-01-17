@@ -33,3 +33,4 @@ This project wouldn't be possible without the amazing contributions from the ope
 ## License 📝
 
 This project is licensed under the [MIT License](https://opensource.org/license/mit/).
+

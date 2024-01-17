@@ -11,9 +11,7 @@ import TaskAdditionModal from '../components/TaskAddModal';
 const MainScreen = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [tasks, setTasks] = useState([
-    { id: 1, emoji: '📅', time: '10:00 AM', task: 'Meeting', isChecked: false },
-    { id: 2, emoji: '📝', time: '12:00 PM', task: 'Write Report', isChecked: true },
-  ]);
+    { id: 1, emoji: '📅', time: '10:00 AM', task: 'Meeting', isChecked: false }]);
 
   const handleToggle = (taskId) => {
     // Implement toggle functionality based on task id
@@ -58,7 +56,7 @@ const MainScreen = () => {
         {renderTasks()}
       </View>
 
-      <View className="flex items-center justify-center">
+      <View className="flex items-end justify-center m-5 p-4">
         <PlusButton onPress={handlePlusButtonPress} />
       </View>
 
