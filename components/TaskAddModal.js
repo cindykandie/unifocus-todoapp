@@ -1,5 +1,3 @@
-// TaskAdditionModal.js
-
 import React, { useState } from 'react';
 import { Modal, View, TextInput, TouchableOpacity, Text } from 'react-native';
 
@@ -8,8 +6,11 @@ const TaskAdditionModal = ({ visible, onClose, onAddTask }) => {
   const [task, setTask] = useState('');
 
   const handleAddTask = () => {
+    // Set "All Day" if the time is empty
+    const formattedTime = time.trim() !== '' ? time : 'All Day';
+
     if (task.trim() !== '') {
-      onAddTask({ time, task });
+      onAddTask({ time: formattedTime, task });
       setTime('');
       setTask('');
       onClose();
