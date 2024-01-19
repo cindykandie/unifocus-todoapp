@@ -15,7 +15,7 @@ const DaysNavigation = ({ onDayPress }) => {
 
       return (
         <View >
-        <TouchableOpacity key={day} onPress={() => onDayPress(currentDate)}>
+        <TouchableOpacity key={index} onPress={() => onDayPress(currentDate)}>
           <View className="items-center">
             <Text>{day}</Text>
             <Text>{formattedDate}</Text>
