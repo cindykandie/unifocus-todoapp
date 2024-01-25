@@ -4,9 +4,8 @@ import { Feather } from "@expo/vector-icons";
 
 const TaskItem = ({ emoji, time, task, isChecked, onToggle, onLongPress }) => {
   return (
-    <View>
       <View
-        className={`flex-row items-center justify-between p-4 rounded-xl bg-purple-400 my-2 mx-3 border-solid border-2 border-pink-400 ${
+        className={`flex-row items-center justify-between p-4 rounded-xl bg-purple-400 my-3 mx-2 border-solid border-2 border-pink-400 ${
           isChecked ? "line-through" : ""
         }`}
       >
@@ -31,7 +30,6 @@ const TaskItem = ({ emoji, time, task, isChecked, onToggle, onLongPress }) => {
           )}
         </TouchableOpacity>
       </View>
-    </View>
   );
 };
 
