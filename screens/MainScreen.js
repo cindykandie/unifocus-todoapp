@@ -7,15 +7,19 @@ import PlusButton from "../components/PlusButton";
 import TaskAdditionModal from "../components/TaskAddModal";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import TaskEditModal from "../components/TaskEditModal";
+import moment from "moment";
 
 const MainScreen = ({ navigation }) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isEditModalVisible, setIsEditModalVisible] = useState(false);
   const [selectedTask, setSelectedTask] = useState(null);
   const [tasks, setTasks] = useState([]);
+  const [selectedDate, setSelectedDate] = useState(
+    moment().format("YYYY-MM-DD")
+  );
 
+  // Emoji Finder
   const emojis = ["🍀", "☘️", "🌺", "🌸", "🌼", "🌻", "🍎", "💛"];
-
   const getRandomEmoji = () => {
     const randomIndex = Math.floor(Math.random() * emojis.length);
     return emojis[randomIndex];
@@ -31,42 +35,56 @@ const MainScreen = ({ navigation }) => {
     const updatedTasks = tasks.map((task) =>
       task.id === taskId ? { ...task, isChecked: !task.isChecked } : task
     );
-
     setTasks(updatedTasks);
     saveTasks(updatedTasks); // Save updated tasks to AsyncStorage
   };
 
+  // Filter tasks for the selected date
+  const filteredTasks = (selectedDate) => {
+    return tasks.filter((task) => {
+      // Use moment to format task.date to match selectedDate format
+      return moment(task.date).format("YYYY-MM-DD") === selectedDate;
+    });
+  };
+
   const handleDayPress = (selectedDate) => {
-    // Implement navigation to the selected day's to-do list
+    setSelectedDate(selectedDate);
+    const tasksForSelectedDate = filteredTasks(selectedDate);
     console.log("Selected Date:", selectedDate);
+    console.log("Tasks for Selected Date:", tasksForSelectedDate);
   };
 
   const handlePlusButtonPress = () => {
     setIsModalVisible(true);
   };
 
-  const handleAddTask = ({ date, task }) => {
+  const handleAddTask = ({ time, task }) => {
     if (task.trim() !== "") {
       const newTask = {
         id: tasks.length + 1,
         emoji: getRandomEmoji(),
-        date,
+        date: moment(selectedDate).format("YYYY-MM-DD"), // Format the date
+        time,
         task,
         isChecked: false,
       };
-      setTasks([...tasks, newTask]);
-      saveTasks([...tasks, newTask]);
+      const updatedTasks = [...tasks, newTask];
+      setTasks(updatedTasks);
+      saveTasks(updatedTasks);
       setIsModalVisible(false);
     }
   };
 
   const handleEditTask = (editedTask) => {
-    const updatedTasks = tasks.map((task) =>
-      task.id === editedTask.id ? editedTask : task
-    );
-
-    setTasks(updatedTasks);
-    saveTasks(updatedTasks); // Save updated tasks to AsyncStorage
+    setTasks((prevTasks) => {
+      const updatedTasks = prevTasks.map((task) =>
+        task.id === editedTask.id
+          ? { ...editedTask, date: moment(selectedDate).format("YYYY-MM-DD") }
+          : task
+      );
+      saveTasks(updatedTasks);
+      return updatedTasks;
+    });
     setIsEditModalVisible(false);
   };
 
@@ -83,11 +101,11 @@ const MainScreen = ({ navigation }) => {
   };
 
   const renderTasks = () => {
-    return tasks.map((task) => (
+    return filteredTasks(selectedDate).map((task) => (
       <TaskItem
         key={`${task.id}-${task.emoji}`}
         emoji={task.emoji}
-        time={task.date}
+        time={task.time}
         task={task.task}
         isChecked={task.isChecked}
         onToggle={() => handleToggle(task.id)}
@@ -117,13 +135,6 @@ const MainScreen = ({ navigation }) => {
     }
   };
 
-  // Filter tasks for the selected date
-  const filteredTasks = (selectedDate) => {
-    return tasks.filter((task) => {
-      return task.date === selectedDate;
-    });
-  };
-
   return (
     <View className="flex-1 bg-gray-100 relative ">
       <View className="flex-1 bg-gray-100 relative mx-1">
@@ -133,13 +144,14 @@ const MainScreen = ({ navigation }) => {
           onDayPress={(selectedDate) => {
             handleDayPress(selectedDate);
           }}
+          selectedDate={selectedDate} // Pass the selectedDate to DaysNavigation
         />
 
         <ScrollView className="flex-1 mb-6 px-3 pt-2">
-          {filteredTasks().length === 0 ? (
-             <Text className="text-center my-[200px] text-3xl text-purple-950 font-semibold">
-             Add tasks here😉
-           </Text>
+          {filteredTasks(selectedDate).length === 0 ? (
+            <Text className="text-center my-20 text-3xl text-purple-950 font-light">
+              Tasks Go Here!😉
+            </Text>
           ) : (
             renderTasks()
           )}
@@ -149,6 +161,7 @@ const MainScreen = ({ navigation }) => {
           visible={isModalVisible}
           onClose={() => setIsModalVisible(false)}
           onAddTask={handleAddTask}
+          selectedDate={selectedDate}
         />
 
         <TaskEditModal

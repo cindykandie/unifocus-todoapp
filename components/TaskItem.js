@@ -6,15 +6,17 @@ const TaskItem = ({ emoji, time, task, isChecked, onToggle, onLongPress }) => {
   return (
     <View>
       <View
-        className={`flex-row items-center justify-between p-4 rounded-xl bg-purple-400 my-2 mx-4 border-solid border-2 border-pink-400 ${
+        className={`flex-row items-center justify-between p-4 rounded-xl bg-purple-400 my-2 mx-3 border-solid border-2 border-pink-400 ${
           isChecked ? "line-through" : ""
         }`}
       >
         <Text className="text-3xl">{emoji}</Text>
         <TouchableOpacity onPress={onLongPress} style={{ flex: 1 }}>
-          <Text className="mb-2 text-xs text-center">{time}</Text>
+          <Text className="mb-2 text-xs text-center">
+           {time}
+          </Text>
           <Text
-            numberOfLines={3}
+            numberOfLines={5}
             ellipsizeMode="tail"
             className={`text-xl text-center mx-2 ${isChecked ? "line-through" : ""}`}
           >
