@@ -34,12 +34,12 @@ const TaskAdditionModal = ({ visible, onClose, onAddTask, selectedDate }) => {
         />
         <TouchableOpacity
           onPress={handleAddTask}
-          className="bg-purple-600 p-2 rounded-lg"
+          className="bg-purple-600 p-2 rounded-lg w-40"
         >
           <Text className="text-white text-xl text-center">Add Task</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={onClose} className="mt-4">
-          <Text className="bg-purple-400 p-2 rounded-lg text-xl text-center w-16">
+          <Text className="bg-yellow-300 p-2 rounded-lg text-xl text-center w-16">
             Close
           </Text>
         </TouchableOpacity>
