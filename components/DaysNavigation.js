@@ -53,7 +53,7 @@ const DaysNavigation = ({ onDayPress, onPreviousWeekPress, selectedDate }) => {
       >
         <View>
           <Text className="text-purple-800 px-2 pb-2 font-bold text-xs">
-            {moment(selectedDate).format("MMMM")}{" "}
+            {moment(selectedDate).format("MMMM")}{" "}{moment(selectedDate).format("YYYY")}{" "}
           </Text>
           <View className="flex-row items-center">
             <Feather name="chevron-left" size={20} color="purple" />
