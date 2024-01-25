@@ -8,6 +8,7 @@ import TaskAdditionModal from "../components/TaskAddModal";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import TaskEditModal from "../components/TaskEditModal";
 import moment from "moment";
+import { StatusBar } from "expo-status-bar";
 
 const MainScreen = ({ navigation }) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -54,6 +55,10 @@ const MainScreen = ({ navigation }) => {
     console.log("Tasks for Selected Date:", tasksForSelectedDate);
   };
 
+  const handleTodayPress = () => {
+    setSelectedDate(moment().format("YYYY-MM-DD"));
+  };
+
   const handlePlusButtonPress = () => {
     setIsModalVisible(true);
   };
@@ -61,9 +66,9 @@ const MainScreen = ({ navigation }) => {
   const handleAddTask = ({ time, task }) => {
     if (task.trim() !== "") {
       const newTask = {
-        id: tasks.length + 1,
+        id: generateUniqueId(),
         emoji: getRandomEmoji(),
-        date: moment(selectedDate).format("YYYY-MM-DD"), // Format the date
+        date: moment(selectedDate).format("YYYY-MM-DD"),
         time,
         task,
         isChecked: false,
@@ -74,6 +79,14 @@ const MainScreen = ({ navigation }) => {
       setIsModalVisible(false);
     }
   };
+  
+  const generateUniqueId = () => {
+    // Generate a unique ID using Math.random() and timestamp
+    const randomId = Math.random().toString(36).substr(2, 9);
+    const timestamp = new Date().getTime();
+    return `${randomId}-${timestamp}`;
+  };
+  
 
   const handleEditTask = (editedTask) => {
     setTasks((prevTasks) => {
@@ -103,7 +116,7 @@ const MainScreen = ({ navigation }) => {
   const renderTasks = () => {
     return filteredTasks(selectedDate).map((task) => (
       <TaskItem
-        key={`${task.id}-${task.emoji}`}
+        key={`${task.id}`}
         emoji={task.emoji}
         time={task.time}
         task={task.task}
@@ -137,8 +150,9 @@ const MainScreen = ({ navigation }) => {
 
   return (
     <View className="flex-1 bg-gray-100 relative ">
+      <StatusBar style="dark"/>
       <View className="flex-1 bg-gray-100 relative mx-1">
-        <DayHeader currentDate={new Date()} />
+        <DayHeader currentDate={selectedDate} onTodayPress={handleTodayPress}/>
         <DaysNavigation
           navigation={navigation}
           onDayPress={(selectedDate) => {
@@ -149,7 +163,7 @@ const MainScreen = ({ navigation }) => {
 
         <ScrollView className="flex-1 mb-6 px-3 pt-2">
           {filteredTasks(selectedDate).length === 0 ? (
-            <Text className="text-center my-20 text-3xl text-purple-950 font-light">
+            <Text className="text-center my-60 text-3xl text-purple-950 font-light">
               Tasks Go Here!😉
             </Text>
           ) : (

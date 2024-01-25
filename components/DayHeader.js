@@ -12,6 +12,8 @@ const DayHeader = ({ currentDate, onTodayPress }) => {
     displayText = 'Today';
   } else if (moment(currentDate).isSame(moment().subtract(1, 'days'), 'day')) {
     displayText = 'Yesterday';
+  } else if (moment(currentDate).isSame(moment().add(1, 'days'), 'day')) {
+    displayText = 'Tomorrow';
   } else {
     displayText = moment(currentDate).format('dddd');
   }
@@ -19,7 +21,7 @@ const DayHeader = ({ currentDate, onTodayPress }) => {
   return (
     <View className="flex-row items-center justify-between py-4 px-6 pr-0 bg-purple-200">
       <Text className='ml-20 font-extrabold text-lg'>{displayText}</Text>
-      <TouchableOpacity onPress={onTodayPress} className='flex-row gap-2 bg-blue-200 rounded justify-center pb-2 px-2'>
+      <TouchableOpacity onPress={onTodayPress} className='flex-row gap-2 bg-purple-300 rounded- justify-center pb-2 px-2'>
         <Text className='text-xs'>Today</Text>
         <Feather name="chevron-right" size={14} color="purple" />
       </TouchableOpacity>
