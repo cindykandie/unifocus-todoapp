@@ -1,12 +1,12 @@
 import React from 'react';
 import { TouchableOpacity, View } from 'react-native';
-import { Feather } from '@expo/vector-icons'; // Replace with your preferred icon library
+import { Feather } from '@expo/vector-icons';
 
 const PlusButton = ({ onPress }) => {
   return (
     <TouchableOpacity onPress={onPress}>
       <View className=" bg-purple-500 rounded-full" > 
-      <Feather name="plus-circle" size={54} color="#ffbe0b" />
+      <Feather name="plus-circle" size={54} color="#ffd60a" />
       </View>
     </TouchableOpacity>
   );
