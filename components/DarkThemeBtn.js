@@ -40,9 +40,9 @@ const DarkThemeBtn = ({ onToggle }) => {
     <TouchableOpacity onPress={handleToggle}>
       <View className=" bg-purple-500 rounded-full p-4">
         {isDarkMode ? (
-          <FontAwesome name="sun-o" size={24} color="#000" />
+          <FontAwesome name="sun-o" size={24} color="#ffd60a" />
         ) : (
-          <FontAwesome name="moon-o" size={24} color="#ffbe0b" />
+          <FontAwesome name="moon-o" size={24} color="#003566" />
         )}
       </View>
     </TouchableOpacity>

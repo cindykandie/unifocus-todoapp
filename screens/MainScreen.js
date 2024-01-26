@@ -20,7 +20,7 @@ const MainScreen = ({ navigation }) => {
   const [selectedDate, setSelectedDate] = useState(
     moment().format("YYYY-MM-DD")
   );
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(true);
 
   useEffect(() => {
     // Load dark mode preference from AsyncStorage
@@ -193,7 +193,7 @@ const MainScreen = ({ navigation }) => {
         {/* List of Tasks */}
         <ScrollView className="my-4 px-3">
           {filteredTasks(selectedDate).length === 0 ? (
-            <Text className="p-4 mx-4 rounded text-center my-60 text-3xl text-purple-50 font-semibold">
+            <Text className="p-4 mx-4 rounded text-center my-60 text-3xl text-yellow-300 font-semibold">
               {moment(selectedDate).format("dddd")}'s Tasks Go Here!😉
             </Text>
           ) : (

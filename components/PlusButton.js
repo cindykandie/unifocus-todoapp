@@ -6,7 +6,7 @@ const PlusButton = ({ onPress }) => {
   return (
     <TouchableOpacity onPress={onPress}>
       <View className=" bg-purple-500 rounded-full" > 
-      <Feather name="plus-circle" size={54} color="#ffbe0b" />
+      <Feather name="plus-circle" size={54} color="#ffd60a" />
       </View>
     </TouchableOpacity>
   );
