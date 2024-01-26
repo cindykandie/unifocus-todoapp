@@ -20,7 +20,7 @@ UniFocus is a vibrant and intuitive to-do list app built with React Native to bo
 
 1. Clone the repository: `git clone https://github.com/cindykandie/UniFocus.git`
 2. Install dependencies: `cd UniFocus && npm install`
-3. Run the app: `expo start`
+3. Run the app: `npx expo start`
 
 ## Contributions 🤝
 
