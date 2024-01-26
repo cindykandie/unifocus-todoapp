@@ -9,6 +9,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import TaskEditModal from "../components/TaskEditModal";
 import moment from "moment";
 import { StatusBar } from "expo-status-bar";
+import DarkThemeBtn from "../components/DarkThemeBtn";
 
 const MainScreen = ({ navigation }) => {
   // State variables
@@ -19,7 +20,26 @@ const MainScreen = ({ navigation }) => {
   const [selectedDate, setSelectedDate] = useState(
     moment().format("YYYY-MM-DD")
   );
+  const [isDarkMode, setIsDarkMode] = useState(false);
 
+  useEffect(() => {
+    // Load dark mode preference from AsyncStorage
+    const loadDarkModePreference = async () => {
+      try {
+        const darkModePreference = await AsyncStorage.getItem("darkMode");
+        setIsDarkMode(darkModePreference === "true");
+      } catch (error) {
+        console.error("Error loading dark mode preference:", error);
+      }
+    };
+
+    loadDarkModePreference();
+  }, []);
+
+  const handleToggleDarkMode = (darkMode) => {
+    setIsDarkMode(darkMode);
+  };
+  
   // Emoji Finder
   const emojis = ["🍀", "☘️", "🌺", "🌸", "🌼", "🌻", "🍎", "💛"];
 
@@ -156,9 +176,9 @@ const MainScreen = ({ navigation }) => {
   };
 
   return (
-    <View className="flex-1 bg-gray-800 relative">
-      <StatusBar style="light" />
-      <View className="flex-1 bg-gray-800 relative mx-1">
+    <View className={`flex-1 ${isDarkMode ? "bg-gray-800" : "bg-gray-200"} relative`}>
+      <StatusBar style={isDarkMode ? "light" : "dark"} />
+      <View className="flex-1 relative mx-1">
         {/* Day Header Component */}
         <DayHeader currentDate={selectedDate} onTodayPress={handleTodayPress} />
 
@@ -197,6 +217,9 @@ const MainScreen = ({ navigation }) => {
         />
         <View className="absolute bottom-4 right-3">
           <PlusButton onPress={handlePlusButtonPress} />
+        </View>
+        <View className="absolute bottom-4 left-3">
+          <DarkThemeBtn onToggle={handleToggleDarkMode} />
         </View>
       </View>
     </View>

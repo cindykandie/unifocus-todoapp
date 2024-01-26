@@ -1,6 +1,6 @@
 import React from 'react';
 import { TouchableOpacity, View } from 'react-native';
-import { Feather } from '@expo/vector-icons'; // Replace with your preferred icon library
+import { Feather } from '@expo/vector-icons';
 
 const PlusButton = ({ onPress }) => {
   return (
